@@ -1,0 +1,18 @@
+name: jupyter-clone-${PROJECT_NAME}
+
+services:
+  jupyter:
+    container_name: jupyter-clone-${PROJECT_NAME}
+    build :
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "start-notebook.sh --IdentityProvider.token=''"
+    ports:
+      - "8888-10000:8888"
+    volumes:
+      - db:/home/jovyan/work
+    env_file:
+      - path: .env
+
+volumes:
+  db:
