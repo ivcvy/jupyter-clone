@@ -1,4 +1,4 @@
-# jupyter-clones
+# jupyter-clone
 Spawn jupyterlab instances in docker container as you like in secure environment!
 gcc is added to the Dockerfile for requirements written in C.
 Customize the requirements as needed.
