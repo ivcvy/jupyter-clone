@@ -9,7 +9,15 @@ fi
 
 PROJECT_NAME=$1
 
-docker start jupyter-clone-${PROJECT_NAME}
+# find project and port in .env
+if [ -f .env ] && grep -q "PROJECT_NAME=$PROJECT_NAME" .env; then
+  PROJECT_PORT=$(awk -v project="PROJECT_NAME=$PROJECT_NAME" '$0 == project {getline; print}' .env | grep -o '[0-9]*$')
+else
+  echo "Error: Project name '$PROJECT_NAME' not found in .env."
+  exit 1
+fi
+
+docker run -d -p $PROJECT_PORT:8888 --name jupyter-clone-${PROJECT_NAME} --mount type=bind,src="./db/${PROJECT_NAME}",target=/home/jovyan/ jupyter-clone-${PROJECT_NAME}-jupyter start-notebook.sh --IdentityProvider.token=''
 
 # echo the host port number
 echo "JupyterLab is running on http://localhost:$(docker port jupyter-clone-$PROJECT_NAME 8888 | grep -o '[0-9]*$')"

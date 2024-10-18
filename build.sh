@@ -21,7 +21,15 @@ else
   echo "PROJECT_NAME=$PROJECT_NAME" > .env
 fi
 
+mkdir -p db/$PROJECT_NAME
 docker compose up --build -d
 
+PROJECT_PORT=$(docker port jupyter-clone-$PROJECT_NAME 8888 | grep -o '[0-9]*$')
+
+# keep port for start.sh
+if [ -f .env ]; then
+  echo "PROJECT_PORT=$PROJECT_PORT" >> .env
+fi
+
 # echo the host port number
-echo "JupyterLab is running on http://localhost:$(docker port jupyter-clone-$PROJECT_NAME 8888 | grep -o '[0-9]*$')"
+echo "JupyterLab is running on http://localhost:$PROJECT_PORT"

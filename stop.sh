@@ -9,4 +9,8 @@ fi
 
 PROJECT_NAME=$1
 
-docker stop jupyter-clone-${PROJECT_NAME}
+# Get container ID by name
+CONTAINER_ID=$(docker ps -aqf "name=jupyter-clone-${PROJECT_NAME}")
+
+docker stop $CONTAINER_ID
+docker rm $CONTAINER_ID

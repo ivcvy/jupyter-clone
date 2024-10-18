@@ -8,11 +8,10 @@ services:
       dockerfile: Dockerfile
     command: sh -c "start-notebook.sh --IdentityProvider.token=''"
     ports:
-      - "8888-10000:8888"
+      - "8888"
     volumes:
-      - db:/home/jovyan/work
+      - type: bind
+        source: db/${PROJECT_NAME}
+        target: /home/jovyan/
     env_file:
       - path: .env
-
-volumes:
-  db:
