@@ -21,6 +21,7 @@ else
   echo "PROJECT_NAME=$PROJECT_NAME" > .env
 fi
 
+docker network create jupyter-clone 2> /dev/null
 mkdir -p db/$PROJECT_NAME
 docker compose up --build -d
 

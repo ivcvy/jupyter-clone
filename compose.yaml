@@ -15,3 +15,8 @@ services:
         target: /home/jovyan/
     env_file:
       - path: .env
+
+networks:
+  default:
+    external:
+      name: jupyter-clone

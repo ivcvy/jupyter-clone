@@ -1,7 +1,5 @@
 # jupyter-clone
-Spawn jupyterlab instances in docker container as you like in secure environment!
-gcc is added to the Dockerfile for requirements written in C.
-Customize the requirements as needed.
+Spawn jupyterlab instances in docker container as you like in secure environment! Customize the requirements as needed at build time, and update requirements via rebuild (remove and build) with storage preservation in host filesystem. All instances are connected via bridge network.
 
 ## build
 ```bash
@@ -21,4 +19,9 @@ bash start.sh PROJECT_NAME
 ## remove
 ```bash
 bash remove.sh PROJECT_NAME
+```
+
+## check instances connected to network
+``` bash
+docker network inspect jupyter-clone -f "{{json .Containers }}"
 ```
