@@ -14,6 +14,10 @@ if [ -f .env ] && grep -q "PROJECT_NAME=$PROJECT_NAME" .env; then
   exit 1
 fi
 
+# add user
+echo "UID=$(id -u)" > .env
+echo "GID=$(id -g)" >> .env
+
 # keep env as project log
 if [ -f .env ]; then
   echo "PROJECT_NAME=$PROJECT_NAME" >> .env

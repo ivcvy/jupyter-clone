@@ -6,15 +6,15 @@ services:
     build :
       context: .
       dockerfile: Dockerfile
-    command: sh -c "start-notebook.sh --IdentityProvider.token=''"
+    user: "$(UID):$(GID)"
+    command: start-notebook.sh --NotebookApp.token=''
     ports:
       - "8888"
     volumes:
       - type: bind
         source: db/${PROJECT_NAME}
         target: /home/jovyan/
-    env_file:
-      - path: .env
+    env_file: .env
 
 networks:
   default:

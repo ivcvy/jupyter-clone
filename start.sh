@@ -17,7 +17,7 @@ else
   exit 1
 fi
 
-docker run -d -p $PROJECT_PORT:8888 --name jupyter-clone-${PROJECT_NAME} --mount type=bind,src="./db/${PROJECT_NAME}",target=/home/jovyan/ jupyter-clone-${PROJECT_NAME}-jupyter start-notebook.sh --IdentityProvider.token=''
+docker run -d -p $PROJECT_PORT:8888 --user $(id -u):$(id -g) --name jupyter-clone-${PROJECT_NAME} --mount type=bind,src="./db/${PROJECT_NAME}",target=/home/jovyan/ jupyter-clone-${PROJECT_NAME}_jupyter start-notebook.sh --NotebookApp.token=''
 
 # echo the host port number
 echo "JupyterLab is running on http://localhost:$(docker port jupyter-clone-$PROJECT_NAME 8888 | grep -o '[0-9]*$')"
